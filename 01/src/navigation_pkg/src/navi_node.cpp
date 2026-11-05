@@ -4,7 +4,13 @@
 
 class NaviPublisher : public rclcpp::Node
 {
+public:
+  NaviPublisher() : Node("navi_publisher"), count(0) {
 
+  }
+
+private:
+  unsigned int count;
 };
 
 int main(int argc, char ** argv)
