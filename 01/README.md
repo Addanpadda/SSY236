@@ -1,7 +1,7 @@
 # Assignment 1: ROS2 Publishers and Subscribers
 - [x] Task 1: Custom Message Definition
 - [x] Task 2: Publisher Node Implementation 
-- [ ] Task 3: Subscriber Node Implementation
+- [x] Task 3: Subscriber Node Implementation
 
 # Compilation
 First source your ros install:

@@ -9,10 +9,8 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(navi_interfaces REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
 
+# navi node
 add_executable(navi_node src/navi_node.cpp)
 ament_target_dependencies(navi_node rclcpp navi_interfaces)
 target_include_directories(navi_node PUBLIC
@@ -20,7 +18,15 @@ target_include_directories(navi_node PUBLIC
   $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
 target_compile_features(navi_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 
-install(TARGETS navi_node
+# navi subscriber
+add_executable(navi_subscriber src/navi_subscriber.cpp)
+ament_target_dependencies(navi_subscriber rclcpp navi_interfaces)
+target_include_directories(navi_subscriber PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
+target_compile_features(navi_subscriber PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+
+install(TARGETS navi_node navi_subscriber
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
