@@ -1,4 +1,5 @@
 #include <cstdio>
+#include "navi_interfaces/msg/coord2d.hpp"
 
 int main(int argc, char ** argv)
 {

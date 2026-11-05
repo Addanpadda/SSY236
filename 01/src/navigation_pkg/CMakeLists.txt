@@ -7,11 +7,13 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(navi_interfaces REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
 add_executable(navi_node src/navi_node.cpp)
+ament_target_dependencies(navi_node navi_interfaces)
 target_include_directories(navi_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
