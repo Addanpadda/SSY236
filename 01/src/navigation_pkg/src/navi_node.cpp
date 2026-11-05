@@ -36,6 +36,9 @@ int main(int argc, char ** argv)
   (void) argc;
   (void) argv;
 
-  printf("hello world navigation_pkg package\n");
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<NaviPublisher>());
+  rclcpp::shutdown();
+
   return 0;
 }
