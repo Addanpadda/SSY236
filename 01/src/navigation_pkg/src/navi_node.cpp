@@ -17,7 +17,14 @@ public:
   }
 
 private:
-  void publish_callback() {}
+  void publish_callback() 
+  {
+    auto message = navi_interfaces::msg::Coord2d();
+    message.x = count++;
+    message.y = 0;
+    RCLCPP_INFO_STREAM(this->get_logger(), "Publishing: '" << message.x << "," << message.y << "'");
+    publisher->publish(message);
+  }
 
   unsigned int count;
   rclcpp::Publisher<navi_interfaces::msg::Coord2d>::SharedPtr publisher;
