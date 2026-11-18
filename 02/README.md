@@ -1,6 +1,6 @@
 # Assigment 2
 - [x] Task 1: Accessing the Full Environment State
-- [ ] Task 2: Finding Objects by Moving to Them
+- [x] Task 2: Finding Objects by Moving to Them
 	- [x] 1
-	- [X] 2
-	- [ ] 3
+	- [x] 2
+	- [x] 3
