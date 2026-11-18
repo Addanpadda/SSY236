@@ -55,7 +55,19 @@ void MapGenerationNode::object_tf_publisher_cb()
     //       to object_transforms so that they can be published in the TF tree
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Add your code here
+    for (const auto &obj : this->map_objects)
+    {
+        geometry_msgs::msg::TransformStamped transform;
+        transform.header.stamp = current_time;
+        transform.header.frame_id = "world";
+        transform.child_frame_id = obj.name;
+        transform.transform.translation.x = obj.pose.position.x;
+        transform.transform.translation.y = obj.pose.position.y;
+        transform.transform.translation.z = obj.pose.position.z;
+        transform.transform.rotation = obj.pose.orientation;
+
+        object_transforms.push_back(transform);
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
