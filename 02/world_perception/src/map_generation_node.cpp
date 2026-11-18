@@ -24,7 +24,20 @@ void MapGenerationNode::update_object(const std::shared_ptr<world_perception::sr
     //       if it doesn't, add it to the list. Note that objects should be stored in this->map_objects.
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Add your code here
+    bool object_found = false;
+    for (auto &obj : this->map_objects)
+    {
+        if (obj.name == request->object.name)
+        {
+            obj.pose = request->object.pose;
+            object_found = true;
+            break;
+        }
+    }
+    if (!object_found)
+    {
+        this->map_objects.push_back(request->object);
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
