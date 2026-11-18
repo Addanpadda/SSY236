@@ -44,7 +44,34 @@ void PerceptionNode::model_state_cb(const gazebo_msgs::msg::ModelStates &model_s
     //       this->current_robot_pose.position. In your implementation, ignore objects that appear in this->seen_objects.
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Add your code here
+    const double threshold = static_cast<double>(this->perception_dist_threshold_m);
+    const double threshold_squared = threshold * threshold;
+
+    for (unsigned int i = 0; i < model_count; ++i)
+    {
+        const std::string &object_name = model_state_msg.name[i];
+
+        if (std::find(this->seen_objects.begin(), this->seen_objects.end(), object_name) != this->seen_objects.end())
+        {
+            continue;
+        }
+
+        const geometry_msgs::msg::Point &object_position = model_state_msg.pose[i].position;
+        const double dx = object_position.x - this->current_robot_pose.position.x;
+        const double dy = object_position.y - this->current_robot_pose.position.y;
+
+        if ((dx * dx + dy * dy) <= threshold_squared)
+        {
+            auto request = std::make_shared<world_perception::srv::UpdateObject::Request>();
+            request->object.name = object_name;
+            request->object.pose = model_state_msg.pose[i];
+
+            this->object_update_client->async_send_request(request);
+            this->seen_objects.push_back(object_name);
+
+            RCLCPP_INFO(this->get_logger(), "Object %s detected near the robot", object_name.c_str());
+        }
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
