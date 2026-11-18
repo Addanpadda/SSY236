@@ -27,9 +27,18 @@ void DirectPerceptionNode::model_state_cb(const gazebo_msgs::msg::ModelStates &m
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // TODO: Set all transforms and add them to model_transforms so that they can be published in the TF tree
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    for (...)
+    for (unsigned int i = 0; i < model_count; ++i)
     {
+        geometry_msgs::msg::TransformStamped transform_stamped;
+        transform_stamped.header.stamp = current_time;
+        transform_stamped.header.frame_id = "world";
+        transform_stamped.child_frame_id = model_state_msg.name[i] + "_direct";
+        transform_stamped.transform.translation.x = model_state_msg.pose[i].position.x;
+        transform_stamped.transform.translation.y = model_state_msg.pose[i].position.y;
+        transform_stamped.transform.translation.z = model_state_msg.pose[i].position.z;
+        transform_stamped.transform.rotation = model_state_msg.pose[i].orientation;
 
+        model_transforms.push_back(transform_stamped);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
