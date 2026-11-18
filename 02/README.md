@@ -2,5 +2,5 @@
 - [x] Task 1: Accessing the Full Environment State
 - [ ] Task 2: Finding Objects by Moving to Them
 	- [x] 1
-	- [ ] 2
+	- [X] 2
 	- [ ] 3
