@@ -1,0 +1,28 @@
+<root BTCPP_format="4">
+    <BehaviorTree ID="WorldPerception">
+        <RetryUntilSuccessful num_attempts="-1">
+            <!-- We perform continuous monitoring -->
+            <Sequence>
+                <!-- We wait for a model states message to be received -->
+                <RetryUntilSuccessful num_attempts="-1">
+                    <ModelStatesSubBehaviour name="model_subscriber" topic_name="/gazebo/model_states" latest_objects="{latest_objects}" />
+                </RetryUntilSuccessful>
+                <RetryUntilSuccessful num_attempts="-1">
+                    <BoundingBoxSubBehaviour name="bbox_subscriber" topic_name="/gazebo/bounding_boxes" latest_objects="{latest_objects}" />
+                </RetryUntilSuccessful>
+                <IfThenElse>
+                    <!-- We check whether there are any objects nearby -->
+                    <CheckObjectNearbyBehaviour name="check_object_nearby" objects="{latest_objects}" distance_threshold_m="1.0" visible_objects="{visible_objects}" />
+                    <!-- If there are objects, we calculate symbol values and update the knowledge base -->
+                    <Sequence>
+                        <CalculateSymbolValuesBehaviour name="calculate_symbol_values" visible_objects="{visible_objects}" scene_symbols="{scene_symbols}" />
+                        <UpdateKBBehaviour name="update_kb" kb_update_srv_name="/kb/update_kb" scene_symbols="{scene_symbols}" />
+                    </Sequence>
+                </IfThenElse>
+
+                <!-- We return a failure so that the process is repeated -->
+                <AlwaysFailure name="failure_node" />
+            </Sequence>
+        </RetryUntilSuccessful>
+    </BehaviorTree>
+</root>

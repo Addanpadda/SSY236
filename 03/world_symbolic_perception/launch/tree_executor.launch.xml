@@ -1,0 +1,7 @@
+<launch>
+    <node pkg="world_symbolic_perception" exec="tree_executor" output="screen">
+        <param from="$(find-pkg-share world_symbolic_perception)/config/tree_config.yaml"/>
+    </node>
+
+    <node pkg="tf2_ros" exec="static_transform_publisher" args="--x 0 --y 0 --z 0 --yaw 0 --pitch 0 --roll 0 --frame-id world --child-frame-id odom"/>
+</launch>
