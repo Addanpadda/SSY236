@@ -6,13 +6,7 @@ bool SymbolLibrary::on(world_symbolic_perception::msg::Object obj1,
 		world_symbolic_perception::msg::Object obj2, 
 		rclcpp::Node::SharedPtr)
 {
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // TODO: Implement the on predicate
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // Add your code here
-	
-	//check if obj1 and 2 is the same
+	//check if objects are the same
 	if(obj1.name == obj2.name)
 		return false;
 
@@ -35,29 +29,44 @@ bool SymbolLibrary::on(world_symbolic_perception::msg::Object obj1,
 	bool on_z = std::abs(top_obj2-bottom_obj1)<=tol;
 
 	//if inside x and y and on top of z return true otherwise false
-	return in_x && in_y && on_z
+	return in_x && in_y && on_z;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 bool SymbolLibrary::leftOf(world_symbolic_perception::msg::Object obj1, world_symbolic_perception::msg::Object obj2, rclcpp::Node::SharedPtr)
 {
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // TODO: Implement the leftOf predicate
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//check if objects are the same
+	if(obj1.name == obj2.name)
+		return false;
+	
+	//Tolerances
+	double x_tol = 0.1; 
+	double z_tol = 0.05;
 
-    // Add your code here
+	//check if left of on y axis
+	double obj1_right_y = obj1.pose.position.y - obj1.bbox.size.y/2.0;
+	double obj2_left_y = obj2.pose.position.y + obj2.bbox.size.y/2.0;
+	bool is_left = obj1_right_y>=obj2_left_y;
+
+	//Check x
+	bool x_align = std::abs(obj1.pose.position.x-obj2.pose.position.x)<=x_tol;
+
+	//check z alignment
+	double obj1_bot = obj1.pose.position.z - obj1.bbox.size.z/2.0;
+	double obj2_bot = obj2.pose.position.z - obj2.bbox.size.z/2.0;
+	bool z_align = std::abs(obj1_bot-obj2_bot)<=z_tol;
+
+	return is_left && x_align && z_align;
+
+
+	//
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 bool SymbolLibrary::rightOf(world_symbolic_perception::msg::Object obj1, world_symbolic_perception::msg::Object obj2, rclcpp::Node::SharedPtr)
 {
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // TODO: Implement the rightOf predicate
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // Add your code here
-
+	return this->leftOf(obj2,obj1,node);
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
