@@ -65,8 +65,7 @@ bool SymbolLibrary::leftOf(world_symbolic_perception::msg::Object obj1, world_sy
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
-bool SymbolLibrary::rightOf(world_symbolic_perception::msg::Object obj1, world_symbolic_perception::msg::Object obj2, rclcpp::Node::SharedPtr)
+bool SymbolLibrary::rightOf(world_symbolic_perception::msg::Object obj1, world_symbolic_perception::msg::Object obj2, rclcpp::Node::SharedPtr node)
 {
-	return this->leftOf(obj2,obj1,node);
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	return SymbolLibrary::leftOf(obj2,obj1,node);
 }
