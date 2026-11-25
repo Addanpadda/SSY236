@@ -30,19 +30,19 @@ NodeStatus CalculateSymbolValuesBehaviour::tick()
 			if(SymbolLibrary::on(obj1,obj2, this->node_)){
 				robot_swiss_knife_msgs::msg::Fluent fluent;
 				fluent.name = "on";
-				fueent.args = {obj1.name,obj2.name};
+				fluent.args = {obj1.name,obj2.name};
 				scene_symbols.push_back(fluent);
 			}
 			if(SymbolLibrary::leftOf(obj1,obj2, this->node_)){
 				robot_swiss_knife_msgs::msg::Fluent fluent;
 				fluent.name = "leftOf";
-				fueent.args = {obj1.name,obj2.name};
+				fluent.args = {obj1.name,obj2.name};
 				scene_symbols.push_back(fluent);
 			}
 			if(SymbolLibrary::rightOf(obj1,obj2, this->node_)){
 				robot_swiss_knife_msgs::msg::Fluent fluent;
 				fluent.name = "rightOf";
-				fueent.args = {obj1.name,obj2.name};
+				fluent.args = {obj1.name,obj2.name};
 				scene_symbols.push_back(fluent);
 			}
 
