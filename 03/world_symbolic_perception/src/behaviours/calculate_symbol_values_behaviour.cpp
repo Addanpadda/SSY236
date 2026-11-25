@@ -19,8 +19,8 @@ NodeStatus CalculateSymbolValuesBehaviour::tick()
     std::vector<robot_swiss_knife_msgs::msg::Fluent> scene_symbols;
 
 	//loop over all combinations of objects
-	for(int ix = 0; ix < visible_objects.size(); ++ix)
-		for(int jx = 0; jx < visible_objects.size(); ++jx){
+	for(size_t ix = 0; ix < visible_objects.size(); ++ix)
+		for(size_t jx = 0; jx < visible_objects.size(); ++jx){
 			if(ix == jx)
 				continue;
 			world_symbolic_perception::msg::Object obj1 = visible_objects[ix];
