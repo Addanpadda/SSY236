@@ -27,25 +27,36 @@ NodeStatus CalculateSymbolValuesBehaviour::tick()
 			world_symbolic_perception::msg::Object obj2 = visible_objects[jx];
 
 			//check each prediacte
-			if(SymbolLibrary::on(obj1,obj2, this->node_)){
-				robot_swiss_knife_msgs::msg::Fluent fluent;
+			if(SymbolLibrary::on(obj1,obj2, this->node)){
+				robot_swiss_knife_msgs::msg::Fluent fluent = scene_symbols.emplace_back();
 				fluent.name = "on";
-				fluent.args = {obj1.name,obj2.name};
-				scene_symbols.push_back(fluent);
+				fluent.value = "true";
+				
+				robot_swiss_knife_msgs::msg::KnowledgeItem param1 = fluent.params.emplace_back();
+				param1.name = obj1.name;
+				robot_swiss_knife_msgs::msg::KnowledgeItem param2 = fluent.params.emplace_back();
+				param2.name = obj2.name;
 			}
-			if(SymbolLibrary::leftOf(obj1,obj2, this->node_)){
-				robot_swiss_knife_msgs::msg::Fluent fluent;
+			if(SymbolLibrary::leftOf(obj1,obj2, this->node)){
+				robot_swiss_knife_msgs::msg::Fluent fluent = scene_symbols.emplace_back();
 				fluent.name = "leftOf";
-				fluent.args = {obj1.name,obj2.name};
-				scene_symbols.push_back(fluent);
+				fluent.value = "true";
+				
+				robot_swiss_knife_msgs::msg::KnowledgeItem param1 = fluent.params.emplace_back();
+				param1.name = obj1.name;
+				robot_swiss_knife_msgs::msg::KnowledgeItem param2 = fluent.params.emplace_back();
+				param2.name = obj2.name;
 			}
-			if(SymbolLibrary::rightOf(obj1,obj2, this->node_)){
-				robot_swiss_knife_msgs::msg::Fluent fluent;
-				fluent.name = "rightOf";
-				fluent.args = {obj1.name,obj2.name};
-				scene_symbols.push_back(fluent);
+			if(SymbolLibrary::rightOf(obj1,obj2, this->node)){
+				robot_swiss_knife_msgs::msg::Fluent fluent = scene_symbols.emplace_back();
+				fluent.name = "leftOf";
+				fluent.value = "true";
+				
+				robot_swiss_knife_msgs::msg::KnowledgeItem param1 = fluent.params.emplace_back();
+				param1.name = obj1.name;
+				robot_swiss_knife_msgs::msg::KnowledgeItem param2 = fluent.params.emplace_back();
+				param2.name = obj2.name;
 			}
-
 		}
 
     if (scene_symbols.size() == 0)
