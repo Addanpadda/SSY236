@@ -25,7 +25,7 @@ bool SymbolLibrary::on(world_symbolic_perception::msg::Object obj1,
 	
 	double tol = 0.05;
 	double top_obj2 = obj2.pose.position.z + obj2.bbox.size.z/2.0;
-	double bottom_obj1 = obj.pose.position.z - obj2.bbox.size.z/2.0;
+	double bottom_obj1 = obj1.pose.position.z - obj2.bbox.size.z/2.0;
 	bool on_z = std::abs(top_obj2-bottom_obj1)<=tol;
 
 	//if inside x and y and on top of z return true otherwise false
