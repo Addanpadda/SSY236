@@ -18,8 +18,8 @@ bool SymbolLibrary::on(world_symbolic_perception::msg::Object obj1,
 
 	
 	//check if obj1 is inside obj 2 boundarybox
-	bool in_x = (obj1.pose.position.x >= obj2_min_x) && (obj1.pose.position.x =< obj2_max_x);
-	bool in_y = (obj1.pose.position.y >= obj2_min_y) && (obj1.pose.position.y =< obj2_max_y);
+	bool in_x = (obj1.pose.position.x >= obj2_min_x) && (obj1.pose.position.x <= obj2_max_x);
+	bool in_y = (obj1.pose.position.y >= obj2_min_y) && (obj1.pose.position.y <= obj2_max_y);
 
 	//check if obj1 is on top of obj 2
 	
